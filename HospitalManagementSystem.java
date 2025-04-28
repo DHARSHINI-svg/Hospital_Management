@@ -28,14 +28,43 @@ class Patient extends Person {
     }
 
     public void displayInfo() {
-        System.out.println("ID: " + id + ", Name: " + name + ", Age: " + age +
-                ", Disease: " + disease + ", Contact: " + contact);
+        System.out.println("Patient[ID:" + id + ", Name: " + name + ", Age: " + age +", Disease: " + disease + ", Contact: " + contact+"]");
+    }
+    public String toCSV()
+    {
+        return id+","+age+","+disease+","+contact;
     }
 }
+class Doctor extends Person
+    {
+        private String id;
+        private String specialization;
+        private String contact;
+        public Doctor(String id,String name;int age;String specialization;String contact)
+        {
+            super(name,age);
+            this.id=id;
+            this.specialization=specialization;
+            this.contact=contact;
+        }
+        public String getId()
+        {
+            return id;
+        }
+        public void displayInfo()
+        {
+            System.out.println("Doctor[ID:" + id +", Name: " + name + ", Age:"+ age+ ", Specialization: " + specialization + ", Contact: " + contact+"]");
+        }
+public String toCSV()
+        {
+            return id+","+name+","+age+","+specialization+","+contact;
+        }}
+
 class HospitalManager {
     private ArrayList<Patient> patients = new ArrayList<>();
+    private ArrayList<Doctor>doctors=new ArrayList<>();
     private Scanner sc = new Scanner(System.in);
-
+//..............PATIENT MANAGEMENT..........//
     public void addPatient() {
         System.out.print("Enter Patient ID: ");
         String id = sc.nextLine();
@@ -46,30 +75,15 @@ class HospitalManager {
 
         System.out.print("Enter Name: ");
         String name = sc.nextLine();
-
         System.out.print("Enter Age: ");
-        int age;
-        try {
-            age = Integer.parseInt(sc.nextLine());
-            if (age <= 0) {
-                System.out.println("Invalid age entered.");
-                return;
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("Age must be a number.");
-            return;
-        }
-
+        int age=validateAge();
         System.out.print("Enter Disease: ");
         String disease = sc.nextLine();
-
         System.out.print("Enter Contact: ");
         String contact = sc.nextLine();
-
         patients.add(new Patient(id, name, age, disease, contact));
         System.out.println("Patient added successfully!");
     }
-
     public void viewPatients() {
         if (patients.isEmpty()) {
             System.out.println("No patients found.");
@@ -79,7 +93,44 @@ class HospitalManager {
             }
         }
     }
-
+public void updatePatient()
+    {
+        System.out.print("Enter Patient ID to update:");
+        String id=sc.nextLine();
+        Patient p=findPAtientById(id);
+        if(p==null)
+        {
+            System.out.println("Patient not found!");
+            return;
+        }
+        System.out.print("Enter NewName:");
+        p.name=sc.nextLine();
+        System.out.print("Enter New Age:");
+        p.age=validateAge();
+        System.out.print("Enter New Disease:");
+        p.disease=sc.nextLine();
+        System.out.print("Enter New Contact:");
+        p.contact=sc.nextLine();
+        System.out.println("Patient updated successfully!");
+    }
+    public void deletePatient()
+    {
+       System.out.print("Enter Patient ID to delete:");
+        String id=sc.nextLine();
+        Patient p=findPatientById(id);
+        if(p==null)
+        {
+            System.out.println("Patient not found!");
+            return;
+        }
+        patients.remove(p);
+        System.out.println("Patient deleted successfully!");
+    }
+    public void searchPatient()
+        {
+        System.out.print("Enter Patient ID or NAme to search:");
+        String keyword=
+        
     private Patient findPatientById(String id) {
         for (Patient p : patients) {
             if (p.getId().equalsIgnoreCase(id)) {
