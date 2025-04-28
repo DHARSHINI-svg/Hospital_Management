@@ -128,7 +128,8 @@ int age=Integer.parseInt(sc.nextLine());
 else
 		{
 		return age;
-}}
+}return 0;
+    }
 
 public class HospitalManagementSystem {
     public static void main(String[] args) {
