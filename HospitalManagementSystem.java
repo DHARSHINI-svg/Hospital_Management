@@ -131,7 +131,7 @@ catch(NumberFormatException e)
             {
                 System.out.println("invalid age");
             }
-			return 0;
+		return age;
 }}
 
 public class HospitalManagementSystem {
