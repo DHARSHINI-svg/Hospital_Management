@@ -129,8 +129,19 @@ public void updatePatient()
     public void searchPatient()
         {
         System.out.print("Enter Patient ID or NAme to search:");
-        String keyword=
-        
+        String keyword=sc.nextLine().toLowerCase();
+            boolean found=false;
+            for(Patient p:patients)
+                {
+                    if(p.getId().equalsIgnoreCase(keyword)||p.name.toLowerCase()contains(keyword))
+                    {
+                        p.dispalyInfo();
+                        found=true;
+                    }}
+            if(!found)
+            {
+                System.out.println("Patient not found!");
+            }}
     private Patient findPatientById(String id) {
         for (Patient p : patients) {
             if (p.getId().equalsIgnoreCase(id)) {
@@ -140,18 +151,20 @@ public void updatePatient()
         return null;
     }
 }
-
 public class HospitalManagementSystem {
     public static void main(String[] args) {
         HospitalManager hm = new HospitalManager();
         Scanner sc = new Scanner(System.in);
-        int choice;
+        int choice=0;
 
         do {
             System.out.println("\n--- Hospital Management System ---");
             System.out.println("1. Add Patient");
             System.out.println("2. View Patients");
-            System.out.println("3. Exit");
+            System.out.println("3. Update Patients");
+            System.out.println("4. Delete Patients");
+            System.out.println("5. Search Patients");
+            System.out.println("6. Exit");
             System.out.print("Enter choice: ");
             try {
                 choice = Integer.parseInt(sc.nextLine());
@@ -161,12 +174,28 @@ public class HospitalManagementSystem {
             }
 
             switch (choice) {
-                case 1: hm.addPatient(); break;
-                case 2: hm.viewPatients(); break;
-                case 3: System.out.println("Exiting..."); break;
-                default: System.out.println("Invalid choice.");
+                case 1:
+                    hm.addPatient(); 
+                    break;
+                case 2:
+                    hm.viewPatients(); 
+                    break;
+                case 3:
+                    hm.updatePatient();
+                    break;
+                case 4:
+                    hm.deletePatient();
+                    break;
+                case 5:
+                    hm.searchPatient();
+                    break;
+                case 6:
+                    System.out.println("Exiting...");
+                    break;
+                default: 
+                    System.out.println("Invalid choice.");
             }
-        } while (choice != 3);
+        } while (choice !=6);
 
         sc.close();
     }
