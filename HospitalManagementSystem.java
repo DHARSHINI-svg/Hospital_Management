@@ -120,17 +120,13 @@ public void updatePatient()
     }
     private int validateAge()
     {
-        try
-            {
 int age=Integer.parseInt(sc.nextLine());
                 if(age<=0)
                 {
-                    throw new NumberFormatException();
-                }}
-catch(NumberFormatException e)
-            {
-                System.out.println("invalid age");
-            }
+                System.out.println("Invalid age");
+                }
+else
+		{
 		return age;
 }}
 
